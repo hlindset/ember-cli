@@ -161,7 +161,8 @@ module.exports = Blueprint.extend({
 });
 {% endhighlight %}
 
-The following hooks are available to blueprint authors:
+As shown above, the following hooks are available to
+blueprint authors:
 
 - `locals`
 - `normalizeEntityName`
@@ -199,6 +200,16 @@ The object passed to `locals` looks like this:
 This hook must return an object. It will be merged with the
 aforementioned default locals.
 
+### normalizeEntityName
+
+Use the `normalizeEntityName` hook to add custom normalization and
+validation of the provided entity name. The default hook does not
+make any changes to the entity name, but makes sure an entity name
+is present and that it doesn't have a trailing slash.
+
+This hook receives the entity name as its first argument. The string
+returned by this hook will be used as the new entity name.
+
 ### beforeInstall & beforeUninstall
 
 Called before any of the template files are processed and receives
@@ -212,13 +223,3 @@ The `afterInstall` hook receives the same arguments as `locals`.
 Use it to perform any custom work after the files are processed.
 For example, the built-in `route` blueprint uses these hooks to
 add and remove relevant route declarations in `app/router.js`.
-
-### normalizeEntityName
-
-Use the `normalizeEntityName` hook to add custom normalization and
-validation of the provided entity name. The default hook does not
-make any changes to the entity name, but makes sure an entity name
-is present and that it doesn't have a trailing slash.
-
-This hook receives the entity name as its first argument. The string
-returned by this hook will be used as the new entity name.
